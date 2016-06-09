@@ -57,9 +57,39 @@ BWA was used to map these hits to mgDNA scaffolds
 
 bwa index ref.fa (your scaffold reference sequence)
 
+outputs: Cen01.scaffolds.fasta.amb Cen01.scaffolds.fasta.ann Cen01.scaffolds.fasta.bwt  prepare_gene_ref.sh Cen01.scaffolds.fasta.pac Cen01.scaffolds.fasta.sa
+
 bwa mem ref.fa reads.fq > aln-se.sam   (reads.fq = test_k45_final_nucl.fasta).
+
+Output: Cen01_bwamem.sam 
 
 Need to use mem from BWA because this can handle our query sequences (Align 70bp-1Mbp query sequences with the BWA-MEM algorithm. Briefly, the algorithm works by seeding alignments with maximal exact matches (MEMs) and then extending seeds with the affine-gap Smith-Waterman algorithm (SW).). Our nucleotide sequences are about 1Kbp. 
 
+Use SamTools to Convert BAM to SAM.
+module load GNU/4.8.3
+module load SAMTools/1.3
+samtools view -bS Cen01_bwamem.sam > Cen01_bwamem.bam
+
+According to IGV: IGV requires that BAM files be sorted and indexed by coordinate. Indexing produces a secondary file with  a ".bai" extension. The resulting file is associated with the alignment track by file naming convention, or loaded independently with the index query parameter.
+
+So to sort the bam file
+samtools sort Cen01_bwamem.bam -o Cen01_bwamem_sorted.bam
+
+Consider converting and sorting in one go 
+samtools view -bS file.sam | samtools sort - file_sorted
+
+Index sorted file to creat associated bai file 
+samtools index Cen01_bwamem_sorted.bam -b Cen01_bwamem_sorted.bai
+
 The sam output will be used to visualize alignment to scaffolds using igv. 
+
+***Make sure when you sign into the HPCC that you use -X to allow for Xquartz to open the IGV gui. 
+e.g. ssh -X chodkows@hpcc.msu.edu
+
+module load IGV/2.3.57
+igv
+
+GUI should open. 
+
+
 

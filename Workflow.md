@@ -97,3 +97,19 @@ igv
 GUI should open. 
 
 The current problem: MY sorted bam file looses the header and hence the reference name changes so it can't locate it on IGV. The header describes the scaffold in the .sam file but loses it in the .bam. Figure this out! It's maintained from samtools view but it loses the correct references from sort. 
+THis may not be the case. Look at head of the bam sort file and it seems fine. 
+
+I tried to do this 
+```
+samtools view -H Cen01_bwamem.bam > header.sam
+```
+Then created the sort file (see code above) 
+
+Then 
+```
+samtools reheader header.sam Cen01_bwamem.sorted.bam > Cen01_bwamem.sorted1.bam
+``` 
+Deleted old sort and renamed new sort back to old sort name. 
+Then finished with indexing and tried to upload to igv again. 
+
+This seemed to work!

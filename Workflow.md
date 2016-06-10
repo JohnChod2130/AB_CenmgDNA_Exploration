@@ -28,7 +28,7 @@ cat *.fasta > /outoutdirectory/KScombined.fasta
 Considering redundancy in sequences, I ran into a problem trying to use Kalign http://www.ebi.ac.uk/Tools/msa/kalign/, so to circumvent this, I used bbmaps to change the heads of all sequences to a sequentenial order (e.g. Domain 1,2,3, etc.). 
 
 ```
-bbrename.sh in=KScombined.fasta out=KS_Domains_bbmapRenamed.fasta prefix=domain 
+/Users/JohnChod2130/Documents/bbmap/rename.sh in=KScombined.fasta out=KS_Domains_bbmapRenamed.fasta prefix=domain 
 ```
 
 Then, the KS_Domains_bbmapRenamed.fasta file was used to run Kalign. Output- KSalignment_Kalign.fasta *** This is seeds for Xander***

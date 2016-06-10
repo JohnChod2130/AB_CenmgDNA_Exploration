@@ -12,8 +12,8 @@ for i in */ ; do
 	cd "$i"
 	cp *KS_* /Users/JohnChod2130/Downloads/ClusterMiner360_PKSTI_Modular/K-SDomain	
 	cd ..;
-```
  done
+```
 
 This script looked for KS domains in the directory for each organism and pooled them into a new directory -> K-SDomain. 
 

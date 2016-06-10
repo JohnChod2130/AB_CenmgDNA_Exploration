@@ -7,12 +7,12 @@ And starting downloading the sequence files for antibiotics in TIPKS-Modular. Th
 At the moment, we can find all of these files here: /Users/JohnChod2130/Downloads/ClusterMiner360_PKSTI_Modular/PKS_TypeI_modular_KSdomain
 
 Specifically, I wanted to grab KS domains from each organism so I created a shell script. 
-
+```
 for i in */ ; do 
 	cd "$i"
 	cp *KS_* /Users/JohnChod2130/Downloads/ClusterMiner360_PKSTI_Modular/K-SDomain	
 	cd ..;
-
+```
  done
 
 This script looked for KS domains in the directory for each organism and pooled them into a new directory -> K-SDomain. 

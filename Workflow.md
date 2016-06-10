@@ -68,19 +68,24 @@ Need to use mem from BWA because this can handle our query sequences (Align 70bp
 Use SamTools to Convert BAM to SAM.
 module load GNU/4.8.3
 module load SAMTools/1.3
-samtools view -bS Cen01_bwamem.sam > Cen01_bwamem.bam
+```
+samtools view -b -S Cen01_bwamem.sam > Cen01_bwamem.bam
+```
 
 According to IGV: IGV requires that BAM files be sorted and indexed by coordinate. Indexing produces a secondary file with  a ".bai" extension. The resulting file is associated with the alignment track by file naming convention, or loaded independently with the index query parameter.
 
 So to sort the bam file
-samtools sort Cen01_bwamem.bam -o Cen01_bwamem_sorted.bam
+```
+samtools sort -O bam -T /mnt/research/ShadeLab/Chodkowski/RDPTools/Xander_assembler/Xander_on_PKS_KSdomains_rawgDNA/BWA_Mapping Cen01_bwamem.bam -o Cen01_bwamem.sorted.bam
+```
 
 Consider converting and sorting in one go 
 samtools view -bS file.sam | samtools sort - file_sorted
 
 Index sorted file to creat associated bai file 
-samtools index Cen01_bwamem_sorted.bam -b Cen01_bwamem_sorted.bai
-
+```
+samtools index Cen01_bwamem.sorted.bam
+``` 
 The sam output will be used to visualize alignment to scaffolds using igv. 
 
 ***Make sure when you sign into the HPCC that you use -X to allow for Xquartz to open the IGV gui. 
@@ -91,5 +96,4 @@ igv
 
 GUI should open. 
 
-
-
+The current problem: MY sorted bam file looses the header and hence the reference name changes so it can't locate it on IGV. The header describes the scaffold in the .sam file but loses it in the .bam. Figure this out! It's maintained from samtools view but it loses the correct references from sort. 
